@@ -59,27 +59,27 @@ public class GooglePlaceSearch {
 		return API_KEY;
 	}
 	
-	public void getNearBy(Double latitude, Double longitude
+	public void getNearby(Double latitude, Double longitude
 			, int radius, String type, String language, String keyword) {
-		getNearByDocument(latitude, longitude, radius, type, language, keyword);
+		getNearbyDocument(latitude, longitude, radius, type, language, keyword);
 	}
 	
-	public void getNearBy(Double latitude, Double longitude
+	public void getNearby(Double latitude, Double longitude
 			, int radius, String type, String language) {
-		getNearByDocument(latitude, longitude, radius, type, language, "");
+		getNearbyDocument(latitude, longitude, radius, type, language, "");
 	}
 	
-	public void getNearBy(Double latitude, Double longitude
+	public void getNearby(Double latitude, Double longitude
 			, int radius, String type) {
-		getNearByDocument(latitude, longitude, radius, type, "", "");
+		getNearbyDocument(latitude, longitude, radius, type, "", "");
 	}
 	
-	public void getNearBy(Double latitude, Double longitude
+	public void getNearby(Double latitude, Double longitude
 			, int radius) {
-		getNearByDocument(latitude, longitude, radius, "", "", "");
+		getNearbyDocument(latitude, longitude, radius, "", "", "");
 	}
 	
-	private void getNearByDocument(double latitude, double longitude, int radius
+	private void getNearbyDocument(double latitude, double longitude, int radius
 			, String type, String language, String keyword) {
 		String url = "https://maps.googleapis.com/maps/api/place/search/xml?";
 		url += "location=" + latitude + "," + longitude + "&radius=" + radius;
@@ -94,10 +94,10 @@ public class GooglePlaceSearch {
 			url += "&language=" + language.toLowerCase(Locale.getDefault());
 
         Log.i("GooglePlace", "URL : " + url);
-        new NearByTask().execute(new String[]{ url });
+        new NearbyTask().execute(new String[]{ url });
 	}
 	
-	private class NearByTask extends AsyncTask<String, Void, ArrayList<ContentValues>> {
+	private class NearbyTask extends AsyncTask<String, Void, ArrayList<ContentValues>> {
 		String status = "";
 		Document doc = null;
 		
