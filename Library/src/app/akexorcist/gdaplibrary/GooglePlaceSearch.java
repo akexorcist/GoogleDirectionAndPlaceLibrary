@@ -48,7 +48,9 @@ public class GooglePlaceSearch {
 	public final static String PLACE_OPENNOW = "OpenNow";
 	public final static String PLACE_PHOTO = "Photo";
 	public final static String PLACE_PHONENUMBER = "PhoneNumber";
-
+	
+	private boolean isLogging = false;
+	
 	private OnPlaceResponseListener mPlaceResponseListener = null; 
 	
 	public GooglePlaceSearch(String api_key) { 
@@ -58,7 +60,13 @@ public class GooglePlaceSearch {
 	public String getApiKey() {
 		return API_KEY;
 	}
-	
+    
+    public void setLogging(boolean state) {
+    	isLogging = state;
+    }
+
+	/****************************************************************************/
+    
 	public void getNearby(Double latitude, Double longitude
 			, int radius, String type, String language, String keyword) {
 		getNearbyDocument(latitude, longitude, radius, type, language, keyword);
@@ -81,23 +89,21 @@ public class GooglePlaceSearch {
 	
 	private void getNearbyDocument(double latitude, double longitude, int radius
 			, String type, String language, String keyword) {
-		String url = "https://maps.googleapis.com/maps/api/place/search/xml?";
-		url += "location=" + latitude + "," + longitude + "&radius=" + radius;
-		url += "&key=" + API_KEY + "&sensor=false";
-
-		Log.i("Check", "URL : " + url);
+		String url = "https://maps.googleapis.com/maps/api/place/search/xml?"
+				+ "location=" + latitude + "," + longitude + "&radius=" + radius
+				+ "&key=" + API_KEY + "&sensor=false";
 		if(!type.equals(""))
 			url += "&types=" + type.toLowerCase(Locale.getDefault());
 		if(!keyword.equals(""))
 			url += "&keyword=" + keyword.replace(" ", "+");
 		if(!language.equals(""))
 			url += "&language=" + language.toLowerCase(Locale.getDefault());
-
-        Log.i("GooglePlace", "URL : " + url);
+   		if(isLogging)
+   			Log.i("GooglePlace", "URL : " + url);
         new RequestTask().execute(new String[]{ url });
 	}
 		
-	
+	/****************************************************************************/
 		
 	public void getTextSearch(String keyword, String type, boolean opennow
 			, String language, double latitude, double longitude, int radius) {
@@ -123,21 +129,20 @@ public class GooglePlaceSearch {
 	
 	private void getTextSearchDocument(String keyword, String type, boolean opennow
 			, String language, double latitude, double longitude, int radius) {
-		String url = "https://maps.googleapis.com/maps/api/place/textsearch/xml?";
-		url += "query=" + keyword.replace(" ", "+") + "&key=" + API_KEY + "&sensor=false";
-
+		String url = "https://maps.googleapis.com/maps/api/place/textsearch/xml?"
+				+ "query=" + keyword.replace(" ", "+") + "&key=" + API_KEY + "&sensor=false";
 		if(latitude != -1 && longitude != -1 && radius != -1)
 			url += "&location=" + latitude + "," + longitude + "&radius=" + radius;
 		if(opennow)
 			url += "&opennow";
 		if(!language.equals(""))
 			url += "&language=" + language.toLowerCase(Locale.getDefault());
-
-        Log.i("GooglePlace", "URL : " + url);
+		if(isLogging)
+			Log.i("GooglePlace", "URL : " + url);
         new RequestTask().execute(new String[]{ url });
 	}
 		
-	
+	/****************************************************************************/
 	
 	public void getRadarSearch(double latitude, double longitude
 			, int radius, String type, String language, boolean opennow, String keyword) {
@@ -166,10 +171,9 @@ public class GooglePlaceSearch {
 	
 	private void getRadarSearchDocument(double latitude, double longitude, int radius
 			, String type, String language, boolean opennow, String keyword) {
-		String url = "https://maps.googleapis.com/maps/api/place/search/xml?";
-		url += "location=" + latitude + "," + longitude + "&radius=" + radius;
-		url += "&key=" + API_KEY + "&sensor=false";
-
+		String url = "https://maps.googleapis.com/maps/api/place/search/xml?"
+				+ "location=" + latitude + "," + longitude + "&radius=" + radius
+				+ "&key=" + API_KEY + "&sensor=false";
 		if(!type.equals(""))
 			url += "&types=" + type.toLowerCase(Locale.getDefault());
 		if(opennow)
@@ -178,10 +182,12 @@ public class GooglePlaceSearch {
 			url += "&keyword=" + keyword.replace(" ", "+");
 		if(!language.equals(""))
 			url += "&language=" + language.toLowerCase(Locale.getDefault());
-
-        Log.i("GooglePlace", "URL : " + url);
+		if(isLogging)
+			Log.i("GooglePlace", "URL : " + url);
         new RequestTask().execute(new String[]{ url });
 	}
+
+	/****************************************************************************/
 	
 	private class RequestTask extends AsyncTask<String, Void, ArrayList<ContentValues>> {
 		String status = "";
@@ -306,45 +312,65 @@ public class GooglePlaceSearch {
 		return cv;
 	}
 	
-	public Bitmap getPhotoBitmapByWidth(String reference, int maxWidth) {
-		return getReferencePhoto(reference, maxWidth, 0);			
+	public void getPhotoBitmapByWidth(String reference, int maxWidth
+			, String tag, OnBitmapResponseListener listener) {
+		getReferencePhoto(reference, maxWidth, 0, tag, listener);			
 	}
 	
-	public Bitmap getPhotoBitmapByHeight(String reference, int maxHeight) {
-		return getReferencePhoto(reference, 0, maxHeight);			
+	public void getPhotoBitmapByHeight(String reference, int maxHeight
+			, String tag, OnBitmapResponseListener listener) {
+		getReferencePhoto(reference, 0, maxHeight, tag, listener);			
 	}
 	
-	public Bitmap getPhotoBitmap(String reference, int maxWidth, int maxHeight) {
-		return getReferencePhoto(reference, maxWidth, maxHeight);			
+	public void getPhotoBitmap(String reference, int maxWidth, int maxHeight
+			, String tag, OnBitmapResponseListener listener) {
+		getReferencePhoto(reference, maxWidth, maxHeight, tag, listener);			
 	}
 	
-	private Bitmap getReferencePhoto(String reference, int maxWidth, int maxHeight) {
-		String url = "https://maps.googleapis.com/maps/api/place/photo?";
-		url += "photoreference=" + reference;
-		url += "&sensor=false&key=" + API_KEY;
+	private void getReferencePhoto(String reference, int maxWidth, int maxHeight
+			, String tag, OnBitmapResponseListener listener) {
+		String url = "https://maps.googleapis.com/maps/api/place/photo?"
+				+ "photoreference=" + reference + "&sensor=false&key=" + API_KEY;
 		if(maxWidth > 0) 
 			url += "&maxwidth=" + String.valueOf(maxWidth);
 		if(maxHeight > 0) 
 			url += "&maxHeight=" + String.valueOf(maxHeight);
+		if(isLogging)
+			Log.i("GooglePlace", "URL : " + url);
+		BitmapRequest br = new BitmapRequest(listener, url, tag);
+        new BitmapTask().execute(new BitmapRequest[]{ br });
+	}
+	
+	private class BitmapTask extends AsyncTask<BitmapRequest, Void, Bitmap> {
+		BitmapRequest br = null;
 		
-		Bitmap bmp = null;
-        HttpClient httpclient = new DefaultHttpClient();   
-        HttpGet request = new HttpGet(url); 
-
-        InputStream in = null;
-        try {
-            in = httpclient.execute(request).getEntity().getContent();
-            bmp = BitmapFactory.decodeStream(in);
-            in.close();
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return bmp;
+		protected Bitmap doInBackground(BitmapRequest... arg0) {
+			br = arg0[0];
+			
+			HttpClient httpclient = new DefaultHttpClient();   
+	        HttpGet request = new HttpGet(arg0[0].getURL()); 
+	        InputStream in = null;
+			Bitmap bmp = null;
+	        try {
+	            in = httpclient.execute(request).getEntity().getContent();
+	            bmp = BitmapFactory.decodeStream(in);
+	            in.close();
+	        } catch (IllegalStateException e) {
+	            e.printStackTrace();
+	        } catch (ClientProtocolException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	        return bmp;
+		}
+		
+		protected void onPostExecute(Bitmap bm) {
+			super.onPostExecute(bm);
+			
+			if(br.getListener() != null)
+				br.getListener().onResponse(bm, br.getTag());
+		}
 	}
 	
 	private int getNodeIndex(NodeList nl, String nodename) {
@@ -361,5 +387,9 @@ public class GooglePlaceSearch {
 	
 	public void setOnPlaceResponseListener(OnPlaceResponseListener listener) {
 		mPlaceResponseListener = listener;
+	}
+	
+	public interface OnBitmapResponseListener{
+	    public void onResponse(Bitmap bm, String tag);
 	}
 }

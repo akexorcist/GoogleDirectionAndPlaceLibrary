@@ -88,7 +88,6 @@ public class GoogleDirection {
     	mContext = context;
     }
     
-
 	public void setOnDirectionResponseListener(OnDirectionResponseListener listener) {
 		mDirectionListener = listener;
     }
@@ -103,7 +102,8 @@ public class GoogleDirection {
                 + "&destination=" + end.latitude + "," + end.longitude 
                 + "&sensor=false&units=metric&mode=driving";
 
-        Log.i("GoogleDirection", "URL : " + url);
+   		if(isLogging)
+   			Log.i("GoogleDirection", "URL : " + url);
         new RequestTask().execute(new String[]{ url });
         return url;
     }

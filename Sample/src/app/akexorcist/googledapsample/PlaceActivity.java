@@ -28,6 +28,8 @@ public class PlaceActivity extends Activity {
 	TextView textStatus;
 	ListView listView;
 	
+	GooglePlaceSearch gp;
+	
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place);
@@ -36,7 +38,7 @@ public class PlaceActivity extends Activity {
         
         listView = (ListView)findViewById(R.id.listView);
         
-        GooglePlaceSearch gp = new GooglePlaceSearch(ApiKey);
+        gp = new GooglePlaceSearch(ApiKey);
 		gp.setOnPlaceResponseListener(new OnPlaceResponseListener() {
 			public void onResponse(String status, ArrayList<ContentValues> arr_data,
 					Document doc) {
@@ -51,6 +53,16 @@ public class PlaceActivity extends Activity {
 								+ "Latitude : " + arr_data.get(i).getAsString(GooglePlaceSearch.PLACE_LATITUDE) + "\n"
 								+ "Longitude : " + arr_data.get(i).getAsString(GooglePlaceSearch.PLACE_LONGITUDE) + "\n"
 								+ "Phone Number : " + arr_data.get(i).getAsString(GooglePlaceSearch.PLACE_PHONENUMBER));
+
+						/*
+						String name = arr_data.get(i).getAsString(GooglePlaceSearch.PLACE_NAME);
+						String photo = arr_data.get(i).getAsString(GooglePlaceSearch.PLACE_PHOTO);
+						gp.getPhotoBitmapByWidth(photo, 300, name, new OnBitmapResponseListener() {
+							public void onResponse(Bitmap bm, String tag) {
+								// TODO Do something for a photo of the place 
+							}
+						});
+						*/
 					}
 
 					ArrayAdapter<String> adapter = new ArrayAdapter<String>(PlaceActivity.this
