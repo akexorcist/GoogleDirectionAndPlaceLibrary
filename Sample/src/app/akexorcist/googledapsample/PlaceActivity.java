@@ -59,7 +59,7 @@ public class PlaceActivity extends Activity {
 			}
 		});
 		
-        gp.getNearBy(latitude, longitude, radius, type, language, keyword);
+        gp.getNearby(latitude, longitude, radius, type, language, keyword);
 		//gp.getTextSearch(keyword, type, false, language);
         //gp.getRadarSearch(latitude, longitude, radius, type, language, false, keyword);
 	}
