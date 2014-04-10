@@ -12,15 +12,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import app.akexorcist.gdaplibrary.GooglePlaceSearch;
 import app.akexorcist.gdaplibrary.GooglePlaceSearch.OnPlaceResponseListener;
+import app.akexorcist.gdaplibrary.PlaceType;
 
 public class PlaceActivity extends Activity {
 	
-	final String ApiKey = "your_api_key";
+	final String ApiKey = "AIzaSyDQ6mA6vUHD3cMNqDoblES6q3dFHzNLqs4";
 	
     double latitude = 13.730354;
 	double longitude = 100.569701;
 	int radius = 1000;
-	String type = "food";
+	String type = PlaceType.FOOD;
 	String language = "en";
 	String keyword = "japan restaurant food";
 	

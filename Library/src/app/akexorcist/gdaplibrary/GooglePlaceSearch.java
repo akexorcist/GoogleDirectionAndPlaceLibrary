@@ -94,101 +94,9 @@ public class GooglePlaceSearch {
 			url += "&language=" + language.toLowerCase(Locale.getDefault());
 
         Log.i("GooglePlace", "URL : " + url);
-        new NearbyTask().execute(new String[]{ url });
+        new RequestTask().execute(new String[]{ url });
 	}
-	
-	private class NearbyTask extends AsyncTask<String, Void, ArrayList<ContentValues>> {
-		String status = "";
-		Document doc = null;
 		
-		protected ArrayList<ContentValues> doInBackground(String... url) {
-			try {
-				HttpClient httpClient = new DefaultHttpClient();
-				HttpContext localContext = new BasicHttpContext();
-				HttpPost httpPost = new HttpPost(url[0]);
-				HttpResponse response = httpClient.execute(httpPost, localContext);
-				InputStream in = response.getEntity().getContent();
-				DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-				doc = builder.parse(in);
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ParserConfigurationException e) {
-				e.printStackTrace();
-			} catch (SAXException e) {
-				e.printStackTrace();
-			} 
-			
-			if(doc != null) {
-				status = getStatus(doc);
-				
-		        if(status.equals(STATUS_OK)) {
-		    		ArrayList<ContentValues> arr_cv = new ArrayList<ContentValues>();
-		        	NodeList nl1 = doc.getElementsByTagName("result");
-			        for (int i = 0; i < nl1.getLength(); i++) {
-						ContentValues cv = new ContentValues();
-						Node node = nl1.item(i);
-			            NodeList nl2 = node.getChildNodes();
-			            node = nl2.item(getNodeIndex(nl2, "reference"));
-			            cv.put("reference", node.getTextContent());
-			            
-			            String reference = node.getTextContent();
-			            String ref_url = "https://maps.googleapis.com/maps/api/place/details/xml?"
-			            		+ "reference=" + reference + "&key=" + API_KEY + "&sensor=false";
-
-			            try {
-			                HttpClient httpClient = new DefaultHttpClient();
-			                HttpContext localContext = new BasicHttpContext();
-			                HttpPost httpPost = new HttpPost(ref_url);
-			                HttpResponse response = httpClient.execute(httpPost, localContext);
-			                InputStream in = response.getEntity().getContent();
-			                DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-			                cv = getReferenceData(cv, builder.parse(in));
-			            } catch (Exception e) {
-			                e.printStackTrace();
-			            }
-
-			            try {
-				    	    node = nl2.item(getNodeIndex(nl2, "opening_hours"));
-				    	    NodeList nl3 = node.getChildNodes();
-				            node = nl3.item(getNodeIndex(nl3, "open_now"));;
-				            cv.put(PLACE_OPENNOW, node.getTextContent());
-			            } catch (ArrayIndexOutOfBoundsException e) {
-				            cv.put(PLACE_OPENNOW, "");
-			            }
-			            
-			            try {
-				    	    node = nl2.item(getNodeIndex(nl2, "photo"));
-				    	    NodeList nl3 = node.getChildNodes();
-				            node = nl3.item(getNodeIndex(nl3, "photo_reference"));;
-				            cv.put(PLACE_PHOTO, node.getTextContent());
-			            } catch (ArrayIndexOutOfBoundsException e) {
-				            cv.put(PLACE_PHOTO, "");
-			            }
-			            arr_cv.add(cv);
-			        }
-			        return arr_cv;
-				}
-				return null;
-			}
-			return null;
-		}	
-
-		protected void onPostExecute(ArrayList<ContentValues> arr_cv) {
-			super.onPostExecute(arr_cv);
-			
-			if(mPlaceResponseListener != null)
-				mPlaceResponseListener.onResponse(status, arr_cv, doc);
-		}
-
-		private String getStatus(Document doc) {
-			NodeList nl1 = doc.getElementsByTagName("PlaceSearchResponse");
-			NodeList nl2 = nl1.item(0).getChildNodes();
-			Node node = nl2.item(getNodeIndex(nl2, "status"));
-			return node.getTextContent();
-		}
-	}
-	
-	
 	
 		
 	public void getTextSearch(String keyword, String type, boolean opennow
@@ -226,102 +134,9 @@ public class GooglePlaceSearch {
 			url += "&language=" + language.toLowerCase(Locale.getDefault());
 
         Log.i("GooglePlace", "URL : " + url);
-        new TextTask().execute(new String[]{ url });
+        new RequestTask().execute(new String[]{ url });
 	}
-	
-	private class TextTask extends AsyncTask<String, Void, ArrayList<ContentValues>> {
-		String status = "";
-		Document doc = null;
 		
-		protected ArrayList<ContentValues> doInBackground(String... url) {
-			try {
-				HttpClient httpClient = new DefaultHttpClient();
-				HttpContext localContext = new BasicHttpContext();
-				HttpPost httpPost = new HttpPost(url[0]);
-				HttpResponse response = httpClient.execute(httpPost, localContext);
-				InputStream in = response.getEntity().getContent();
-				DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-				doc = builder.parse(in);
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ParserConfigurationException e) {
-				e.printStackTrace();
-			} catch (SAXException e) {
-				e.printStackTrace();
-			} 
-			
-			if(doc != null) {
-				status = getStatus(doc);
-				
-		        if(status.equals(STATUS_OK)) {
-		    		ArrayList<ContentValues> arr_cv = new ArrayList<ContentValues>();
-		        	NodeList nl1 = doc.getElementsByTagName("result");
-			        for (int i = 0; i < nl1.getLength(); i++) {
-						ContentValues cv = new ContentValues();
-						Node node = nl1.item(i);
-			            NodeList nl2 = node.getChildNodes();
-			            node = nl2.item(getNodeIndex(nl2, "reference"));
-			            cv.put("reference", node.getTextContent());
-			            
-			            String reference = node.getTextContent();
-			            String ref_url = "https://maps.googleapis.com/maps/api/place/details/xml?"
-			            		+ "reference=" + reference + "&key=" + API_KEY + "&sensor=false";
-
-			            try {
-			                HttpClient httpClient = new DefaultHttpClient();
-			                HttpContext localContext = new BasicHttpContext();
-			                HttpPost httpPost = new HttpPost(ref_url);
-			                HttpResponse response = httpClient.execute(httpPost, localContext);
-			                InputStream in = response.getEntity().getContent();
-			                DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-			                cv = getReferenceData(cv, builder.parse(in));
-			            } catch (Exception e) {
-			                e.printStackTrace();
-			            }
-			            
-			            try {
-				    	    node = nl2.item(getNodeIndex(nl2, "opening_hours"));
-				    	    NodeList nl3 = node.getChildNodes();
-				            node = nl3.item(getNodeIndex(nl3, "open_now"));;
-				            cv.put(PLACE_OPENNOW, node.getTextContent());
-			            } catch (ArrayIndexOutOfBoundsException e) {
-				            cv.put(PLACE_OPENNOW, "Unknown");
-			            }
-			            
-			            try {
-				    	    node = nl2.item(getNodeIndex(nl2, "photo"));
-				    	    NodeList nl3 = node.getChildNodes();
-				            node = nl3.item(getNodeIndex(nl3, "photo_reference"));;
-				            cv.put(PLACE_PHOTO, node.getTextContent());
-			            } catch (ArrayIndexOutOfBoundsException e) {
-				            cv.put(PLACE_PHOTO, "");
-			            }
-			            
-			            arr_cv.add(cv);
-			        }
-			        return arr_cv;
-				}
-				return null;
-			}
-			return null;
-		}	
-
-		protected void onPostExecute(ArrayList<ContentValues> arr_cv) {
-			super.onPostExecute(arr_cv);
-			
-			if(mPlaceResponseListener != null)
-				mPlaceResponseListener.onResponse(status, arr_cv, doc);
-		}
-
-		private String getStatus(Document doc) {
-			NodeList nl1 = doc.getElementsByTagName("PlaceSearchResponse");
-			NodeList nl2 = nl1.item(0).getChildNodes();
-			Node node = nl2.item(getNodeIndex(nl2, "status"));
-			return node.getTextContent();
-		}
-	}
-	
-	
 	
 	
 	public void getRadarSearch(double latitude, double longitude
@@ -365,10 +180,10 @@ public class GooglePlaceSearch {
 			url += "&language=" + language.toLowerCase(Locale.getDefault());
 
         Log.i("GooglePlace", "URL : " + url);
-        new RadarTask().execute(new String[]{ url });
+        new RequestTask().execute(new String[]{ url });
 	}
 	
-	private class RadarTask extends AsyncTask<String, Void, ArrayList<ContentValues>> {
+	private class RequestTask extends AsyncTask<String, Void, ArrayList<ContentValues>> {
 		String status = "";
 		Document doc = null;
 		
