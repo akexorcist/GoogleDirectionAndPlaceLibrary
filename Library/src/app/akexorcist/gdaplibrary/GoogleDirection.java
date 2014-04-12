@@ -154,18 +154,7 @@ public class GoogleDirection {
    			Log.i("GoogleDirection", "Status : " + node1.getTextContent());
    		return node1.getTextContent();
     }
-    
-   	public String getTotalDurationText(Document doc) {
-   		NodeList nl1 = doc.getElementsByTagName("duration");
-   		Node node1 = nl1.item(nl1.getLength() - 1);
-   		NodeList nl2 = node1.getChildNodes();
-   		Node node2 = nl2.item(getNodeIndex(nl2, "text"));
-   		if(isLogging)
-   			Log.i("GoogleDirection", "TotalDuration : " + node2.getTextContent());
-   		return node2.getTextContent();
-    }
-
-    
+        
    	public String[] getDurationText(Document doc) {
    		NodeList nl1 = doc.getElementsByTagName("duration");
    		String[] arr_str = new String[nl1.getLength() - 1];
@@ -179,18 +168,7 @@ public class GoogleDirection {
    		}
    		return arr_str;
     }
-    
-   	public int getTotalDurationValue(Document doc) {
-   		NodeList nl1 = doc.getElementsByTagName("duration");
-   		Node node1 = nl1.item(nl1.getLength() - 1);
-   		NodeList nl2 = node1.getChildNodes();
-   		Node node2 = nl2.item(getNodeIndex(nl2, "value"));
-   		if(isLogging)
-   			Log.i("GoogleDirection", "TotalDuration : " + node2.getTextContent());
-   		return Integer.parseInt(node2.getTextContent());
-    }
-
-    
+   	    
    	public int[] getDurationValue(Document doc) {
    		NodeList nl1 = doc.getElementsByTagName("duration");
    		int[] arr_int = new int[nl1.getLength() - 1];
@@ -204,25 +182,73 @@ public class GoogleDirection {
    		}
    		return arr_int;
     }
-  
-    public String getDistanceText (Document doc) {
-        NodeList nl1 = doc.getElementsByTagName("distance");
-        Node node1 = nl1.item(nl1.getLength() - 1);
-        NodeList nl2 = node1.getChildNodes();
-        Node node2 = nl2.item(getNodeIndex(nl2, "text"));
+   	
+   	public String getTotalDurationText(Document doc) {
+   		NodeList nl1 = doc.getElementsByTagName("duration");
+   		Node node1 = nl1.item(nl1.getLength() - 1);
+   		NodeList nl2 = node1.getChildNodes();
+   		Node node2 = nl2.item(getNodeIndex(nl2, "text"));
    		if(isLogging)
-   			Log.i("GoogleDirection", "DistanceText : " + node2.getTextContent());
-        return node2.getTextContent();
+   			Log.i("GoogleDirection", "TotalDuration : " + node2.getTextContent());
+   		return node2.getTextContent();
+    }
+    
+   	public int getTotalDurationValue(Document doc) {
+   		NodeList nl1 = doc.getElementsByTagName("duration");
+   		Node node1 = nl1.item(nl1.getLength() - 1);
+   		NodeList nl2 = node1.getChildNodes();
+   		Node node2 = nl2.item(getNodeIndex(nl2, "value"));
+   		if(isLogging)
+   			Log.i("GoogleDirection", "TotalDuration : " + node2.getTextContent());
+   		return Integer.parseInt(node2.getTextContent());
+    }
+  
+    public String[] getDistanceText (Document doc) {
+   		NodeList nl1 = doc.getElementsByTagName("distance");
+   		String[] arr_str = new String[nl1.getLength() - 1];
+   		for(int i = 0 ; i < nl1.getLength() - 1 ; i++) {
+	   		Node node1 = nl1.item(i);
+	   		NodeList nl2 = node1.getChildNodes();
+	   		Node node2 = nl2.item(getNodeIndex(nl2, "text"));
+	   		arr_str[i] = node2.getTextContent();
+	   		if(isLogging)
+	   			Log.i("GoogleDirection", "DurationText : " + node2.getTextContent());
+   		}
+   		return arr_str;
     }
  
-    public int getDistanceValue (Document doc) {
-        NodeList nl1 = doc.getElementsByTagName("distance");
-        Node node1 = nl1.item(nl1.getLength() - 1);
-        NodeList nl2 = node1.getChildNodes();
-        Node node2 = nl2.item(getNodeIndex(nl2, "value"));
+    public int[] getDistanceValue (Document doc) {
+    	NodeList nl1 = doc.getElementsByTagName("distance");
+   		int[] arr_int = new int[nl1.getLength() - 1];
+   		for(int i = 0 ; i < nl1.getLength() - 1 ; i++) {
+	   		Node node1 = nl1.item(i);
+	   		NodeList nl2 = node1.getChildNodes();
+	   		Node node2 = nl2.item(getNodeIndex(nl2, "value"));
+	   		arr_int[i] = Integer.parseInt(node2.getTextContent());
+	   		if(isLogging)
+	   			Log.i("GoogleDirection", "Duration : " + node2.getTextContent());
+   		}
+   		return arr_int;
+    }
+
+   	public String getTotalDistanceText(Document doc) {
+   		NodeList nl1 = doc.getElementsByTagName("distance");
+   		Node node1 = nl1.item(nl1.getLength() - 1);
+   		NodeList nl2 = node1.getChildNodes();
+   		Node node2 = nl2.item(getNodeIndex(nl2, "text"));
    		if(isLogging)
-        	Log.i("GoogleDirection", "DistanceValue : " + node2.getTextContent());
-        return Integer.parseInt(node2.getTextContent());
+   			Log.i("GoogleDirection", "TotalDuration : " + node2.getTextContent());
+   		return node2.getTextContent();
+    }
+    
+   	public int getTotalDistanceValue(Document doc) {
+   		NodeList nl1 = doc.getElementsByTagName("distance");
+   		Node node1 = nl1.item(nl1.getLength() - 1);
+   		NodeList nl2 = node1.getChildNodes();
+   		Node node2 = nl2.item(getNodeIndex(nl2, "value"));
+   		if(isLogging)
+   			Log.i("GoogleDirection", "TotalDuration : " + node2.getTextContent());
+   		return Integer.parseInt(node2.getTextContent());
     }
  
     public String getStartAddress (Document doc) {
