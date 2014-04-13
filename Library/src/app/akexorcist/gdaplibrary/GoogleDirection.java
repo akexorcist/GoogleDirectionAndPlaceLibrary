@@ -40,6 +40,7 @@ import android.util.Log;
 public class GoogleDirection {
     public final static String MODE_DRIVING = "driving";
     public final static String MODE_WALKING = "walking";
+    public final static String MODE_BICYCLING = "bicycling";
 
     public final static String STATUS_OK = "OK";
     public final static String STATUS_NOT_FOUND = "NOT_FOUND";
@@ -87,20 +88,12 @@ public class GoogleDirection {
     public GoogleDirection(Context context) { 
     	mContext = context;
     }
-    
-	public void setOnDirectionResponseListener(OnDirectionResponseListener listener) {
-		mDirectionListener = listener;
-    }
-	
-	public void setOnAnimateListener(OnAnimateListener listener) {
-		mAnimateListener = listener;
-	}
  
     public String request(LatLng start, LatLng end, String mode) {
         final String url = "http://maps.googleapis.com/maps/api/directions/xml?"
                 + "origin=" + start.latitude + "," + start.longitude  
                 + "&destination=" + end.latitude + "," + end.longitude 
-                + "&sensor=false&units=metric&mode=driving";
+                + "&sensor=false&units=metric&mode=" + mode;
 
    		if(isLogging)
    			Log.i("GoogleDirection", "URL : " + url);
@@ -203,7 +196,7 @@ public class GoogleDirection {
    		return Integer.parseInt(node2.getTextContent());
     }
   
-    public String[] getDistanceText (Document doc) {
+    public String[] getDistanceText(Document doc) {
    		NodeList nl1 = doc.getElementsByTagName("distance");
    		String[] arr_str = new String[nl1.getLength() - 1];
    		for(int i = 0 ; i < nl1.getLength() - 1 ; i++) {
@@ -217,7 +210,7 @@ public class GoogleDirection {
    		return arr_str;
     }
  
-    public int[] getDistanceValue (Document doc) {
+    public int[] getDistanceValue(Document doc) {
     	NodeList nl1 = doc.getElementsByTagName("distance");
    		int[] arr_int = new int[nl1.getLength() - 1];
    		for(int i = 0 ; i < nl1.getLength() - 1 ; i++) {
@@ -251,7 +244,7 @@ public class GoogleDirection {
    		return Integer.parseInt(node2.getTextContent());
     }
  
-    public String getStartAddress (Document doc) {
+    public String getStartAddress(Document doc) {
         NodeList nl1 = doc.getElementsByTagName("start_address");
         Node node1 = nl1.item(0);
    		if(isLogging)
@@ -259,7 +252,7 @@ public class GoogleDirection {
         return node1.getTextContent();
     }
  
-    public String getEndAddress (Document doc) {
+    public String getEndAddress(Document doc) {
         NodeList nl1 = doc.getElementsByTagName("end_address");
         Node node1 = nl1.item(0);
    		if(isLogging)
@@ -267,7 +260,7 @@ public class GoogleDirection {
         return node1.getTextContent();
     }
  
-    public String getCopyRights (Document doc) {
+    public String getCopyRights(Document doc) {
         NodeList nl1 = doc.getElementsByTagName("copyrights");
         Node node1 = nl1.item(0);
    		if(isLogging)
@@ -386,12 +379,20 @@ public class GoogleDirection {
 	    int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));       
 	    return px;
 	}
+
+	public void setOnDirectionResponseListener(OnDirectionResponseListener listener) {
+		mDirectionListener = listener;
+    }
 	
-	public interface OnDirectionResponseListener{
+	public void setOnAnimateListener(OnAnimateListener listener) {
+		mAnimateListener = listener;
+	}
+	
+	public interface OnDirectionResponseListener {
 	    public void onResponse(String status, Document doc, GoogleDirection gd);
 	}
 	
-	public interface OnAnimateListener{
+	public interface OnAnimateListener {
 	    public void onFinish();
 	    public void onStart();
 	    public void onProgress(int progress, int total);
@@ -477,8 +478,8 @@ public class GoogleDirection {
 		isAnimated = false;
 	}
 	
-	public void isAnimated() {
-		isAnimated = false;
+	public boolean isAnimated() {
+		return isAnimated;
 	}
 
     private Runnable r = new Runnable() {
