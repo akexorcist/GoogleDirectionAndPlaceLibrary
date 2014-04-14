@@ -38,10 +38,11 @@
         
         <activity android:name="app.akexorcist.googledapsample.PlaceActivity1" />
         <activity android:name="app.akexorcist.googledapsample.PlaceActivity2" />
+        <activity android:name="app.akexorcist.googledapsample.PlaceActivity3" />
         
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCYAAicaxLbddmixUhFQk70dKZnuDq4jc0"/>
+            android:value="YOUR_API_KEY"/>
         
         <meta-data
             android:name="com.google.android.gms.version"

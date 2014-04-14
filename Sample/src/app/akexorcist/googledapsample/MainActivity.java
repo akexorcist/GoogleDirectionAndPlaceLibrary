@@ -52,5 +52,13 @@ public class MainActivity extends FragmentActivity {
 				startActivity(intent);
 			}
 		});
+        
+    	Button buttonPlace3 = (Button)findViewById(R.id.buttonPlace03);
+    	buttonPlace3.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent(MainActivity.this, PlaceActivity3.class);
+				startActivity(intent);
+			}
+		});
     }
 }

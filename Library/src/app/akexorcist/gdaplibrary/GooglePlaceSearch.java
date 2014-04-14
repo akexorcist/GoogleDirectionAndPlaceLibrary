@@ -334,7 +334,7 @@ public class GooglePlaceSearch {
 		if(maxWidth > 0) 
 			url += "&maxwidth=" + String.valueOf(maxWidth);
 		if(maxHeight > 0) 
-			url += "&maxHeight=" + String.valueOf(maxHeight);
+			url += "&maxheight=" + String.valueOf(maxHeight);
 		if(isLogging)
 			Log.i("GooglePlace", "URL : " + url);
 		BitmapRequest br = new BitmapRequest(listener, url, tag);
@@ -382,7 +382,7 @@ public class GooglePlaceSearch {
 	}
 	
 	public interface OnPlaceResponseListener{
-	    public void onResponse(String status, ArrayList<ContentValues> arr_data, Document doc );
+	    public void onResponse(String status, ArrayList<ContentValues> arr_data, Document doc);
 	}
 	
 	public void setOnPlaceResponseListener(OnPlaceResponseListener listener) {

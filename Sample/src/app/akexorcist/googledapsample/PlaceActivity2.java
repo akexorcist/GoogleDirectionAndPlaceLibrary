@@ -19,7 +19,7 @@ import app.akexorcist.gdaplibrary.GooglePlaceSearch.OnPlaceResponseListener;
 import app.akexorcist.gdaplibrary.PlaceType;
 
 public class PlaceActivity2 extends FragmentActivity {
-	final String ApiKey = "AIzaSyDQ6mA6vUHD3cMNqDoblES6q3dFHzNLqs4";
+	final String ApiKey = "YOUR_API_KEY";
 	
     double latitude = 13.730354;
 	double longitude = 100.569701;

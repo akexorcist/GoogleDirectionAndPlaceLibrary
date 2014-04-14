@@ -5,16 +5,24 @@ import java.util.ArrayList;
 import org.w3c.dom.Document;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ContentValues;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import app.akexorcist.gdaplibrary.GooglePlaceSearch;
+import app.akexorcist.gdaplibrary.GooglePlaceSearch.OnBitmapResponseListener;
 import app.akexorcist.gdaplibrary.GooglePlaceSearch.OnPlaceResponseListener;
 import app.akexorcist.gdaplibrary.PlaceType;
 
-public class PlaceActivity1 extends Activity {
+public class PlaceActivity3 extends Activity {
 	
 	final String ApiKey = "YOUR_API_KEY";
 	
@@ -46,6 +54,7 @@ public class PlaceActivity1 extends Activity {
 				
 				if(status.equals(GooglePlaceSearch.STATUS_OK)) {
 					ArrayList<String> array = new ArrayList<String>();
+					final ArrayList<String> array_photo = new ArrayList<String>();
 					
 					for(int i = 0 ; i < arr_data.size() ; i++) {
 						array.add("Name : " + arr_data.get(i).getAsString(GooglePlaceSearch.PLACE_NAME) + "\n"
@@ -53,17 +62,36 @@ public class PlaceActivity1 extends Activity {
 								+ "Latitude : " + arr_data.get(i).getAsString(GooglePlaceSearch.PLACE_LATITUDE) + "\n"
 								+ "Longitude : " + arr_data.get(i).getAsString(GooglePlaceSearch.PLACE_LONGITUDE) + "\n"
 								+ "Phone Number : " + arr_data.get(i).getAsString(GooglePlaceSearch.PLACE_PHONENUMBER));
+						array_photo.add(arr_data.get(i).getAsString(GooglePlaceSearch.PLACE_PHOTO));
 					}
 
-					ArrayAdapter<String> adapter = new ArrayAdapter<String>(PlaceActivity1.this
+					ArrayAdapter<String> adapter = new ArrayAdapter<String>(PlaceActivity3.this
 							, R.layout.listview_text, array);
 					listView.setAdapter(adapter);
+					listView.setOnItemClickListener(new OnItemClickListener() {
+						public void onItemClick(AdapterView<?> arg0, View arg1,
+								int arg2, long arg3) {
+							Dialog dialog = new Dialog(PlaceActivity3.this);
+			                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+			                dialog.setContentView(R.layout.dialog_photo);
+			                dialog.setCancelable(true);
+
+			                final ImageView imgPhoto = (ImageView)dialog.findViewById(R.id.imgPhoto);
+
+			                dialog.show();
+			                
+							gp.getPhotoBitmapByWidth(array_photo.get(arg2), 600, ""
+									, new OnBitmapResponseListener() {
+								public void onResponse(Bitmap bm, String tag) {
+					                imgPhoto.setImageBitmap(bm);
+								}
+							});
+						}
+					});
 				}
 			}
 		});
 		
         gp.getNearby(latitude, longitude, radius, type, language, keyword);
-		//gp.getTextSearch(keyword, type, false, language);
-        //gp.getRadarSearch(latitude, longitude, radius, type, language, false, keyword);
 	}
 }
