@@ -11,16 +11,34 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/buttonDirection"
+            android:id="@+id/buttonDirection01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Google Direction Sample" />
+            android:text="Google Direction Sample 1" />
 
         <Button
-            android:id="@+id/buttonPlace"
+            android:id="@+id/buttonDirection02"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Google Place Sample" />
+            android:text="Google Direction Sample 2" />
+
+        <Button
+            android:id="@+id/buttonDirection03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Google Direction Sample 3" />
+
+        <Button
+            android:id="@+id/buttonPlace01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Google Place Sample 1" />
+
+        <Button
+            android:id="@+id/buttonPlace02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Google Place Sample 2" />
     </LinearLayout>
     
 </LinearLayout>

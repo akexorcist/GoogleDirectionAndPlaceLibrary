@@ -32,9 +32,12 @@
             </intent-filter>
         </activity>
         
-        <activity android:name="app.akexorcist.googledapsample.DirectionActivity" />
+        <activity android:name="app.akexorcist.googledapsample.DirectionActivity1" />
+        <activity android:name="app.akexorcist.googledapsample.DirectionActivity2" />
+        <activity android:name="app.akexorcist.googledapsample.DirectionActivity3" />
         
-        <activity android:name="app.akexorcist.googledapsample.PlaceActivity" />
+        <activity android:name="app.akexorcist.googledapsample.PlaceActivity1" />
+        <activity android:name="app.akexorcist.googledapsample.PlaceActivity2" />
         
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"

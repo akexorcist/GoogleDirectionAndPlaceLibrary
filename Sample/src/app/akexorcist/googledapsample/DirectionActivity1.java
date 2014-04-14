@@ -9,6 +9,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -19,8 +20,7 @@ import app.akexorcist.gdaplibrary.GoogleDirection;
 import app.akexorcist.gdaplibrary.GoogleDirection.OnAnimateListener;
 import app.akexorcist.gdaplibrary.GoogleDirection.OnDirectionResponseListener;
 
-public class DirectionActivity extends FragmentActivity {
-	
+public class DirectionActivity1 extends FragmentActivity {
 	LatLng start = new LatLng(13.744246499553903, 100.53428772836924);
 	LatLng end = new LatLng(13.751279688694071, 100.54316081106663);
 
@@ -33,7 +33,7 @@ public class DirectionActivity extends FragmentActivity {
     
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_direction);
+        setContentView(R.layout.activity_direction_1);
         
         mMap = ((SupportMapFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.map)).getMap();
@@ -44,16 +44,14 @@ public class DirectionActivity extends FragmentActivity {
         gd.setOnDirectionResponseListener(new OnDirectionResponseListener() {
 			public void onResponse(String status, Document doc, GoogleDirection gd) {
 				mDoc = doc;
-				
-				//mMap.addPolyline(gd.getPolyline(doc, 3, Color.RED));				
-				
+				mMap.addPolyline(gd.getPolyline(doc, 3, Color.RED));				
 		        mMap.addMarker(new MarkerOptions().position(start)
 		        	    .icon(BitmapDescriptorFactory.defaultMarker(
-		        	    BitmapDescriptorFactory.HUE_GREEN)).title("start"));
+		        	    BitmapDescriptorFactory.HUE_GREEN)));
         
 		        mMap.addMarker(new MarkerOptions().position(end)
 		        	    .icon(BitmapDescriptorFactory.defaultMarker(
-		        	    BitmapDescriptorFactory.HUE_GREEN)).title("end"));
+		        	    BitmapDescriptorFactory.HUE_GREEN)));
 		        
 		        buttonAnimate.setVisibility(View.VISIBLE);
 			}
@@ -81,6 +79,7 @@ public class DirectionActivity extends FragmentActivity {
         buttonRequest.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				v.setVisibility(View.GONE);
+				gd.setLogging(true);
 				gd.request(start, end, GoogleDirection.MODE_DRIVING);
 			}
 		});

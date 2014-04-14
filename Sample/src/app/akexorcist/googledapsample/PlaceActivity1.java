@@ -14,7 +14,7 @@ import app.akexorcist.gdaplibrary.GooglePlaceSearch;
 import app.akexorcist.gdaplibrary.GooglePlaceSearch.OnPlaceResponseListener;
 import app.akexorcist.gdaplibrary.PlaceType;
 
-public class PlaceActivity extends Activity {
+public class PlaceActivity1 extends Activity {
 	
 	final String ApiKey = "AIzaSyDQ6mA6vUHD3cMNqDoblES6q3dFHzNLqs4";
 	
@@ -32,7 +32,7 @@ public class PlaceActivity extends Activity {
 	
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_place);
+        setContentView(R.layout.activity_place_1);
 
         textStatus = (TextView)findViewById(R.id.textStatus);
         
@@ -53,19 +53,9 @@ public class PlaceActivity extends Activity {
 								+ "Latitude : " + arr_data.get(i).getAsString(GooglePlaceSearch.PLACE_LATITUDE) + "\n"
 								+ "Longitude : " + arr_data.get(i).getAsString(GooglePlaceSearch.PLACE_LONGITUDE) + "\n"
 								+ "Phone Number : " + arr_data.get(i).getAsString(GooglePlaceSearch.PLACE_PHONENUMBER));
-
-						/*
-						String name = arr_data.get(i).getAsString(GooglePlaceSearch.PLACE_NAME);
-						String photo = arr_data.get(i).getAsString(GooglePlaceSearch.PLACE_PHOTO);
-						gp.getPhotoBitmapByWidth(photo, 300, name, new OnBitmapResponseListener() {
-							public void onResponse(Bitmap bm, String tag) {
-								// TODO Do something for a photo of the place 
-							}
-						});
-						*/
 					}
 
-					ArrayAdapter<String> adapter = new ArrayAdapter<String>(PlaceActivity.this
+					ArrayAdapter<String> adapter = new ArrayAdapter<String>(PlaceActivity1.this
 							, R.layout.listview_text, array);
 					listView.setAdapter(adapter);
 				}

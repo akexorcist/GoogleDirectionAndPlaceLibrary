@@ -67,22 +67,22 @@ public class GooglePlaceSearch {
 
 	/****************************************************************************/
     
-	public void getNearby(Double latitude, Double longitude
+	public void getNearby(double latitude, double longitude
 			, int radius, String type, String language, String keyword) {
 		getNearbyDocument(latitude, longitude, radius, type, language, keyword);
 	}
 	
-	public void getNearby(Double latitude, Double longitude
+	public void getNearby(double latitude, double longitude
 			, int radius, String type, String language) {
 		getNearbyDocument(latitude, longitude, radius, type, language, "");
 	}
 	
-	public void getNearby(Double latitude, Double longitude
+	public void getNearby(double latitude, double longitude
 			, int radius, String type) {
 		getNearbyDocument(latitude, longitude, radius, type, "", "");
 	}
 	
-	public void getNearby(Double latitude, Double longitude
+	public void getNearby(double latitude, double longitude
 			, int radius) {
 		getNearbyDocument(latitude, longitude, radius, "", "", "");
 	}
@@ -165,7 +165,7 @@ public class GooglePlaceSearch {
 	}
 	
 	public void getRadarSearch(double latitude, double longitude
-			, int radius ) {
+			, int radius) {
 		getRadarSearchDocument(latitude, longitude, radius, "", "", false, "");
 	}
 	
