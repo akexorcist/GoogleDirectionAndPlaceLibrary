@@ -32,6 +32,8 @@
             </intent-filter>
         </activity>
         
+        <activity android:name="app.akexorcist.googledapsample.SimpleDirection" />
+        
         <activity android:name="app.akexorcist.googledapsample.DirectionActivity1" />
         <activity android:name="app.akexorcist.googledapsample.DirectionActivity2" />
         <activity android:name="app.akexorcist.googledapsample.DirectionActivity3" />
@@ -42,7 +44,7 @@
         
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="YOUR_API_KEY"/>
+            android:value="AIzaSyCYAAicaxLbddmixUhFQk70dKZnuDq4jc0"/>
         
         <meta-data
             android:name="com.google.android.gms.version"

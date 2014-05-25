@@ -24,7 +24,7 @@ import app.akexorcist.gdaplibrary.PlaceType;
 
 public class PlaceActivity3 extends Activity {
 	
-	final String ApiKey = "YOUR_API_KEY";
+	final String ApiKey = "AIzaSyDQ6mA6vUHD3cMNqDoblES6q3dFHzNLqs4";
 	
     double latitude = 13.730354;
 	double longitude = 100.569701;

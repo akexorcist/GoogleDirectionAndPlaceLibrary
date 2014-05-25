@@ -13,6 +13,14 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
+    	Button buttonSimpleDirection = (Button)findViewById(R.id.buttonSimpleDirection);
+    	buttonSimpleDirection.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent(MainActivity.this, SimpleDirection.class);
+				startActivity(intent);
+			}
+		});
+        
     	Button buttonDirection1 = (Button)findViewById(R.id.buttonDirection01);
     	buttonDirection1.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
