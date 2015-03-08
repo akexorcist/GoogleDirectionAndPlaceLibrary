@@ -6,7 +6,7 @@ Google Direction API and Google Place API Library for Google Maps Android API v2
 
 Official Sources (Thai)
 ======================================
-International language is not available for now. 
+International language is not available yet. 
 [GoogleDirectionAndPlaceLibrary ทางเลือกง่ายๆสำหรับชาว Google Maps](http://www.akexorcist.com/2014/04/android-code-googledirectionandplacelib.html)
 
 
