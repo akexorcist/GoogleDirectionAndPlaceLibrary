@@ -1,6 +1,6 @@
 This library is deprecated. 
 ======================================
-For Google Direction API Library, please using [Google Direction Library for Android (my new library)](https://github.com/akexorcist/Android-GoogleDirectionLibrary) instead.
+For Google Direction API Library, please using [Google Direction Library for Android (My new library)](https://github.com/akexorcist/Android-GoogleDirectionLibrary) instead.
 
 For Google Place API Library, please using [Google Places API for Android (Google Play Services)](https://developers.google.com/places/android-api) instead.
 
@@ -33,7 +33,7 @@ Warning
 ======================================
 This library isn't support for Android Studio (I didn't crate gradle file). Please use JAR file instead of project folder.
 
-For Google Place API : You need to get API Key for Google Place API (Broser API. It's seperate of Google Maps API key 
+For Google Place API : You need to get API Key for Google Place API (Browser API. It's seperate of Google Maps API key 
 
 
 Usage 
