@@ -1,7 +1,9 @@
 This library is deprecated. 
-For Google Direction API Library, please using [Google Direction Library for Android (my new library)](https://github.com/akexorcist/Android-GoogleDirectionLibrary) instead.
-For Google Place API Library, please using [Google Places API for Android (Google Play Services)](https://developers.google.com/places/android-api) instead.
 ======================================
+For Google Direction API Library, please using [Google Direction Library for Android (my new library)](https://github.com/akexorcist/Android-GoogleDirectionLibrary) instead.
+
+For Google Place API Library, please using [Google Places API for Android (Google Play Services)](https://developers.google.com/places/android-api) instead.
+
 
 Android-GoogleDirectionAndPlaceLibrary
 ======================================
